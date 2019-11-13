@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+
+
+   <!-- <link rel="stylesheet" type="text/css" href="css/index.css" />-->
+    <title>Camera API </title>
+	<script type="text/javascript" src="cordova.js"></script>
+	<script>
+	document.addEventListener("deviceReady", onDeviceReady, false);
+
+function onDeviceReady() 
+{ 
+   console.log("Device ready...");
+   document.getElementById('btn').addEventListener('click', getCenterCameraImage,  false);
+   document.getElementById('btn2').addEventListener('click', getBorderCameraImage, false);
+   console.log("buttons active...");
+   
+}
+function back() {
+    document.location.assign('index.html');
+    }
+function getCenterCameraImage()
+{
+	
+	let opts = {
+		quality : 20, 
+		allowEdit : false, 
+		destinationType : Camera.DestinationType.FILE_URI,
+		sourceType : Camera.PictureSourceType.CAMERA,
+		mediaType : Camera.MediaType.PICTURE,
+		encodingType : Camera.EncodingType.JPEG,
+		cameraDirection : Camera.Direction.FRONT,
+		targetWidth: 300,
+		targetHeight : 400
+		};
+	
+	navigator.camera.getPicture(onCaptureSuccess, onCaptureError, opts);
+}
+function getBorderCameraImage()
+{
+
+	let opts = {
+		quality : 20, 
+		allowEdit : false, 
+		destinationType : Camera.DestinationType.FILE_URI,
+		sourceType : Camera.PictureSourceType.CAMERA,
+		mediaType : Camera.MediaType.PICTURE,
+		encodingType : Camera.EncodingType.JPEG,
+		cameraDirection : Camera.Direction.FRONT,
+		targetWidth: 300,
+		targetHeight : 400
+		};
+	
+	navigator.camera.getPicture(onBorderCaptureSuccess, onCaptureError, opts);
+}
+function onCaptureSuccess(ImageURI)
+{
+    
+	var msg = document.getElementById('msg');
+	msg.textContent = ImageURI;
+	var centerImage = document.getElementById('centerCameraImage');
+	centerImage.src = ImageURI;
+    
+    
+}
+function onBorderCaptureSuccess(BorderImageURI)
+{
+	var msg2 = document.getElementById('msg2');
+	msg.textContent = BorderImageURI;
+	var bigImage1 = document.getElementById('borderCameraImage1');
+    var bigImage2 = document.getElementById('borderCameraImage2');
+    var bigImage3 = document.getElementById('borderCameraImage3');
+    var bigImage4 = document.getElementById('borderCameraImage4');
+	bigImage1.src = BorderImageURI;
+	bigImage2.src = BorderImageURI;
+	bigImage3.src = BorderImageURI;
+	bigImage4.src = BorderImageURI;
+	
+    
+}
+function onCaptureError(message)
+{
+	var msg = document.getElementById('msg');
+	msg.textContent = 'Capture error: ' + message;
+
+	
+}
+	</script>
+</head>
+
+<body>
+<div> 
+<br />
+<img id ="borderCameraImage1"src="img/logo.png" height="15px" width="330px" style="position: absolute; left: 5px; top: 5px;"> 
+
+<img id ="borderCameraImage2"src="img/logo.png" height="315px" width="15px" style="position: absolute; left: 5px; top: 20px;"> 
+
+<img id ="centerCameraImage"src="img/logo.png"  height="300px" width="300" style="position: absolute; left: 20px; top: 20px;"> 
+
+<img id ="borderCameraImage3"src="img/logo.png" height="315px" width="15px" style="position: absolute; left: 320px; top: 20px;"> 
+
+<img id ="borderCameraImage4"src="img/logo.png" height="15px" width="330px" style="position: absolute; left: 5px; top: 320px;">
+</div>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<div>
+    <button id="btn">Capture center photo</button>
+	<button id="btn2">Capture the border photo</button>
+	<p id="msg"></p>
+	<p id="msg2"></p>
+	<button onclick="back()">Home</button>	
+</div> 
+ 
+</body>
+
+</html>
